@@ -8,26 +8,26 @@ import { CheckoutOrderSummary } from './OrderSummary';
 import './checkout-header.css';
 import './CheckoutPage.css';
 
-export function CheckoutPage({ cart, loadCart }) {
+export function CheckoutPage({ cart, loadCart, apiUrl }) {
 	const [paymentSummary, setPaymentSummary] = useState(null);
 
 	const [deliveryOptions, setDeliveryOptions] = useState([]);
 	useEffect(() => {
 		const fetchCheckoutData = async () => {
 			const response = await axios.get(
-				'/api/delivery-options?expand=estimatedDeliveryTime'
+				`${apiUrl}/api/delivery-options?expand=estimatedDeliveryTime`
 			);
 			setDeliveryOptions(response.data);
 		};
 		fetchCheckoutData();
-	}, []);
+	}, [apiUrl]);
 	useEffect(() => {
 		const fetchPaymentData = async () => {
-			const response = await axios.get('/api/payment-summary');
+			const response = await axios.get(`${apiUrl}/api/payment-summary`);
 			setPaymentSummary(response.data);
 		};
 		fetchPaymentData();
-	}, [cart]);
+	}, [cart, apiUrl]);
 	return (
 		<>
 			<title>Checkout</title>
@@ -42,8 +42,13 @@ export function CheckoutPage({ cart, loadCart }) {
 						cart={cart}
 						deliveryOptions={deliveryOptions}
 						loadCart={loadCart}
+						apiUrl={apiUrl}
 					/>
-					<PaymentSummary paymentSummary={paymentSummary} loadCart={loadCart} />
+					<PaymentSummary
+						paymentSummary={paymentSummary}
+						loadCart={loadCart}
+						apiUrl={apiUrl}
+					/>
 				</div>
 			</div>
 		</>

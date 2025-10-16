@@ -6,16 +6,16 @@ import { ProuctGrid } from './ProductGrid';
 
 import './HomePage.css';
 
-export function HomePage({ cart, loadCart }) {
+export function HomePage({ cart, loadCart, apiUrl }) {
 	const [products, setProducts] = useState([]);
 
 	useEffect(() => {
 		const getHomeData = async () => {
-			const response = await axios.get('/api/products');
+			const response = await axios.get(`${apiUrl}/api/products`);
 			setProducts(response.data);
 		};
 		getHomeData();
-	}, []);
+	}, [apiUrl]);
 
 	return (
 		<>
@@ -23,7 +23,7 @@ export function HomePage({ cart, loadCart }) {
 			<link rel='icon' type='image/svg+xml' href='home-favicon.png' />
 			<Header cart={cart} />
 			<div className='home-page'>
-				<ProuctGrid products={products} loadCart={loadCart} />
+				<ProuctGrid products={products} loadCart={loadCart} apiUrl={apiUrl} />
 			</div>
 		</>
 	);

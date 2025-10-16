@@ -4,11 +4,11 @@ import { formatCurrency } from '../../utills/money';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 
-export function PaymentSummary({ paymentSummary, loadCart }) {
+export function PaymentSummary({ paymentSummary, loadCart, apiUrl }) {
 	const navigate = useNavigate();
 
 	const createOrder = async () => {
-		await axios.post('/api/orders');
+		await axios.post(`${apiUrl}/api/orders`);
 		await loadCart();
 		navigate('/orders');
 	};

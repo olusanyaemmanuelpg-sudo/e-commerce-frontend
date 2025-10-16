@@ -2,7 +2,12 @@
 import dayjs from 'dayjs';
 import { DeliveryOptions } from './DeliveryOptions';
 import { CartItemDetails } from './CartItemDetails';
-export function CheckoutOrderSummary({ cart, deliveryOptions, loadCart }) {
+export function CheckoutOrderSummary({
+	cart,
+	deliveryOptions,
+	loadCart,
+	apiUrl,
+}) {
 	return (
 		<>
 			<div className='order-summary'>
@@ -24,11 +29,16 @@ export function CheckoutOrderSummary({ cart, deliveryOptions, loadCart }) {
 								</div>
 
 								<div className='cart-item-details-grid'>
-									<CartItemDetails cartItem={cartItem} loadCart={loadCart} />
+									<CartItemDetails
+										cartItem={cartItem}
+										loadCart={loadCart}
+										apiUrl={apiUrl}
+									/>
 									<DeliveryOptions
 										cartItem={cartItem}
 										deliveryOptions={deliveryOptions}
 										loadCart={loadCart}
+										apiUrl={apiUrl}
 									/>
 								</div>
 							</div>
